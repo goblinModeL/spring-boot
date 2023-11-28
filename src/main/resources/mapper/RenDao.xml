@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.RenDao">
+
+    <resultMap type="com.example.demo.entity.Ren" id="RenMap">
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryByIdss" resultMap="RenMap">
+        select * from ren
+    </select>
+    <select id="count" resultType="java.lang.Long">
+
+    </select>
+
+    <!--查询指定行数据-->
+
+
+</mapper>
+
