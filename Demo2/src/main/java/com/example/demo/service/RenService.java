@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.entity.Ren;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+//Service被称作业务逻辑层。顾名思义，它处理逻辑上的业务，而不去考虑具体的实现。
 /**
  * (Ren)表服务接口
  *
@@ -15,10 +17,10 @@ public interface RenService {
     /**
      * 通过ID查询单条数据
      *
-     * @param  主键
+     * @param 主键
      * @return 实例对象
      */
-    Ren queryById();
+    List<Ren> queryById( String name);
 
     /**
      * 分页查询

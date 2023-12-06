@@ -9,7 +9,7 @@
 
     <!--查询单个-->
     <select id="queryByIdss" resultMap="RenMap">
-        select * from ren
+        select * from ren where name='${name}'
     </select>
     <select id="count" resultType="java.lang.Long">
 

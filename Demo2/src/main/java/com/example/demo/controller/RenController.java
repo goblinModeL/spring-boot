@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Ren)表控制层
@@ -17,6 +18,8 @@ import javax.annotation.Resource;
  * @since 2023-11-28 13:51:05
  */
 @RestController
+@CrossOrigin
+
 @RequestMapping("/ren")
 public class RenController {
     /**
@@ -27,8 +30,8 @@ public class RenController {
 
 
     @GetMapping("/list")
-    public Ren getlist() {
-        Ren ren = renService.queryById();
+    public List<Ren> getlist(@RequestParam String name) {
+        List<Ren> ren = renService.queryById(name);
         return ren;
     }
 

@@ -4,11 +4,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.dao.RenDao;
 import com.example.demo.entity.Ren;
 import com.example.demo.service.RenService;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Ren)表服务实现类
@@ -23,10 +24,11 @@ public class RenServiceImpl implements RenService {
 
 
     @Override
-    public Ren queryById() {
-       Ren ren = renDao.queryByIdss();
-        return ren;
+    public List<Ren> queryById(@RequestParam String name) {
+       List<Ren> list = renDao.queryByIdss(name);
+        return list;
     }
+
 
     @Override
     public Page<Ren> queryByPage(Ren ren, PageRequest pageRequest) {

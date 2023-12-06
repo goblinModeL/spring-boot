@@ -1,7 +1,7 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
-
+//Entity层，顾名思义就是实体层，放置一个个实体，及其相应的set、get方法。如果想要对数据库进行一些操作（比如说读取）的话，就要先写entity层。
 /**
  * (Ren)实体类
  *

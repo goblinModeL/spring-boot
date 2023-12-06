@@ -22,7 +22,7 @@ public interface RenDao {
      * @param
      * @return 实例对象
      */
-    Ren queryByIdss();
+    List<Ren> queryByIdss(String name);
 
 
     /**
