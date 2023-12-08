@@ -1,14 +1,12 @@
 package com.example.demo.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.entity.Ren;
+import com.example.demo.manage.UniformTreatment;
 import com.example.demo.service.RenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -28,11 +26,16 @@ public class RenController {
     @Autowired
     private RenService renService;
 
-
     @GetMapping("/list")
-    public List<Ren> getlist(@RequestParam String name) {
+    public UniformTreatment getlist(@RequestParam String name) {
         List<Ren> ren = renService.queryById(name);
-        return ren;
+         if(ren != null && !ren.isEmpty()){
+             return  UniformTreatment.success(ren);
+         }else{
+             return UniformTreatment.Erro();
+         }
+
+
     }
 
 
