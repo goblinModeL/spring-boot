@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Ren;
+import com.example.demo.entity.Userinfo;
 import com.example.demo.manage.UniformTreatment;
+import com.example.demo.manage.ApiResponse.Api;
 import com.example.demo.service.RenService;
+import com.example.demo.service.UserinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +21,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 
-@RequestMapping("/ren")
+@RequestMapping("/home")
 public class RenController {
     /**
      * 服务对象
@@ -37,7 +40,31 @@ public class RenController {
 
 
     }
+    @Autowired
+    private UserinfoService userinfoService;
+    @GetMapping("/login")
+    public Api begin(@RequestParam String  username, @RequestParam String password){
+        Userinfo name=userinfoService.logininfoname(username);
+              Userinfo mes= userinfoService.logininfo(username,password);
+        if (mes == null &&name==null) {
+            return new Api("202", "用户不存在", null);
 
+        }
+        else if(mes == null){
+            return new Api("201", "密码错误", null);
+        }
+        return new Api("200", "成功", null);
+    };
+    @GetMapping("/insert")
+    public Api INSERT(@RequestParam String  username, @RequestParam String password) {
+        Userinfo name = userinfoService.logininfoname(username);
+        if (name != null) {
+            return new Api("201", "用户名已存在", null);
+        } else {
+         int mes = userinfoService.insertuser(username, password);
+            return new Api("200", "注册成功", null);
+        }
+    }
 
     /**
      * 新增数据

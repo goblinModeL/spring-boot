@@ -31,7 +31,7 @@ public interface RenDao {
      * @param ren 查询条件
      * @return 总行数
      */
-    long count(Ren ren);
+
 
 
 
