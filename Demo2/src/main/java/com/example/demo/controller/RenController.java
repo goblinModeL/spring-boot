@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.GenerateToken;
 import com.example.demo.entity.Ren;
 import com.example.demo.entity.Userinfo;
 import com.example.demo.manage.UniformTreatment;
@@ -28,7 +29,6 @@ public class RenController {
      */
     @Autowired
     private RenService renService;
-
     @GetMapping("/list")
     public UniformTreatment getlist(@RequestParam String name) {
         List<Ren> ren = renService.queryById(name);
@@ -37,8 +37,6 @@ public class RenController {
          }else{
              return UniformTreatment.Erro();
          }
-
-
     }
     @Autowired
     private UserinfoService userinfoService;
@@ -53,7 +51,10 @@ public class RenController {
         else if(mes == null){
             return new Api("201", "密码错误", null);
         }
-        return new Api("200", "成功", null);
+        GenerateToken tokenGenerator = new GenerateToken();
+        mes.setToken(tokenGenerator.createToken(mes));
+        System.out.println(mes);
+        return new Api("200", "成功", mes);
     };
     @GetMapping("/insert")
     public Api INSERT(@RequestParam String  username, @RequestParam String password) {

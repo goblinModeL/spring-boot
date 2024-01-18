@@ -17,7 +17,7 @@ import java.util.List;
 public interface UserinfoMapper  {
   Userinfo login(@Param("username") String username, @Param("password") String password);//多个要加@Param
   Userinfo loginname(@Param("username") String username);
-int insert(@Param("username") String username, @Param("password") String password);
+  int insert(@Param("username") String username, @Param("password") String password);
 }
 
 

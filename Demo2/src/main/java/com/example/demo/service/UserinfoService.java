@@ -11,7 +11,7 @@ import java.util.List;
 * @createDate 2023-12-11 15:34:10
 */
 public interface UserinfoService  {
-Userinfo logininfo(String username, String password);
+  Userinfo logininfo(String username, String password);
     Userinfo logininfoname(String username);
     int  insertuser(String username,String password);
 }

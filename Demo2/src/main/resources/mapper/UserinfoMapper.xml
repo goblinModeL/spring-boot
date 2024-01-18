@@ -16,6 +16,6 @@
         select  * from  userinfo where  username=#{username}
     </select>
     <insert id="insert" parameterType="com.example.demo.entity.Userinfo" >
-insert into   userinfo(username, password) values(#{username},#{password})
+    insert into   userinfo(username, password) values(#{username},#{password})
     </insert>
 </mapper>

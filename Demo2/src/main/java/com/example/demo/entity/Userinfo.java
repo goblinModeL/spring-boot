@@ -9,13 +9,31 @@ public class Userinfo  {
      * 
      */
     private String username;
+    private String token;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private  int id;
     /**
      * 
      */
     private String password;
 
     private static final long serialVersionUID = 1L;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     /**
      * 
