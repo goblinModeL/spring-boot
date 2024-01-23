@@ -7,6 +7,7 @@ import com.example.demo.config.GenerateToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ public class AuthHandlerInterceptor  implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 获取请求路径
         String requestPath = request.getRequestURI();
+        System.out.println("请求路径：" + response);
         Map<String,Object> map = new HashMap<>();
         // 如果是登录接口，则放行
         if ("/home/login".equals(requestPath)) {
@@ -30,8 +32,9 @@ public class AuthHandlerInterceptor  implements HandlerInterceptor {
         // 在这里添加你的身份验证逻辑
         // 例如，验证请求头中是否包含有效的 Token
         String token = request.getHeader("token");
+        System.out.println("Token: " + token);
 //        // 示例：判断请求头中是否包含 Token
-//        String token = request.getHeader("Authorization");
+//        String token = request.getHeader("Authorization")
         GenerateToken generateToken = new GenerateToken();
         try{
             generateToken.verify(token);//验证令牌
@@ -44,7 +47,6 @@ public class AuthHandlerInterceptor  implements HandlerInterceptor {
             map.put("msg","token算法不一致");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Caught exception of type: " + e.getClass().getName());
             map.put("msg","token无效");
         }
 
