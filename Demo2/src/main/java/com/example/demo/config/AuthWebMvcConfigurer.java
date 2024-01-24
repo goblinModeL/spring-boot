@@ -25,6 +25,14 @@ public class AuthWebMvcConfigurer  implements WebMvcConfigurer {
                     .addPathPatterns("/**")
                     .excludePathPatterns("/home/login");
         }
-
+@Override
+public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**")
+            .allowedOriginPatterns("*")
+            .allowCredentials(true)
+            .allowedMethods("GET", "POST", "DELETE", "PUT")
+            .allowedHeaders("*")
+            .maxAge(3600);
+}
 
 }

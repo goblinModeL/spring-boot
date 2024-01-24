@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.AllActive;
+import com.example.demo.manage.ApiResponse.Api;
 import com.example.demo.service.AllActiveService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,11 @@ public class AllActiveController {
      private AllActiveService  AllActiveService;
 
     @GetMapping("/all")
-     public List<AllActive> getAll(){
-
+     public Api getAll(){
 
             List<AllActive> allActive = AllActiveService.getActive();
-            System.out.println(allActive);
-            return allActive;
+
+            return  new Api("200", "成功", allActive);
 
 
     }

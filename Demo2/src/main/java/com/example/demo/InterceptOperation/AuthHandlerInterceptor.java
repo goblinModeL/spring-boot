@@ -20,6 +20,9 @@ public class AuthHandlerInterceptor  implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if("OPTIONS".equals(request.getMethod().toUpperCase())) {
+            return true;
+        }
         // 获取请求路径
         String requestPath = request.getRequestURI();
         System.out.println("请求路径：" + response);
@@ -32,7 +35,7 @@ public class AuthHandlerInterceptor  implements HandlerInterceptor {
         // 在这里添加你的身份验证逻辑
         // 例如，验证请求头中是否包含有效的 Token
         String token = request.getHeader("token");
-        System.out.println("Token: " + token);
+
 //        // 示例：判断请求头中是否包含 Token
 //        String token = request.getHeader("Authorization")
         GenerateToken generateToken = new GenerateToken();
@@ -49,7 +52,7 @@ public class AuthHandlerInterceptor  implements HandlerInterceptor {
             e.printStackTrace();
             map.put("msg","token无效");
         }
-
+        map.put("code","500");
         String resultJson = new ObjectMapper().writeValueAsString(map);
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().print(resultJson);
