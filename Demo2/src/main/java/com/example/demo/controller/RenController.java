@@ -5,6 +5,7 @@ import com.example.demo.entity.Page;
 import com.example.demo.entity.Ren;
 import com.example.demo.entity.Userinfo;
 import com.example.demo.manage.ErrorCode;
+import com.example.demo.manage.PageResult;
 import com.example.demo.manage.Result;
 import com.example.demo.manage.UniformTreatment;
 
@@ -74,9 +75,9 @@ public class RenController {
     @Autowired
     private PageService pageService;
    @GetMapping("/ceshi")
-   public Result ceshi(@RequestParam int  pagenum, @RequestParam int pagesize) {
+   public PageResult ceshi(@RequestParam int  pagenum, @RequestParam int pagesize) {
        List<Page> value=pageService.countpage(pagenum,pagesize);
-       return  new Result(200, "注册成2功", null);
+       return  new PageResult(200, "ok", value,pagesize,pagenum);
    }
     /**
      * 新增数据

@@ -14,7 +14,7 @@ import java.util.List;
 */
 @Mapper
 public interface PageMapper  {
-   List<Page> PagingQuery(int pageNum, int pageSize);
+   List<Page> PagingQuery();
 }
 
 

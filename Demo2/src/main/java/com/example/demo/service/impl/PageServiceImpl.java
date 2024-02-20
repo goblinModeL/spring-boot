@@ -22,9 +22,8 @@ public class PageServiceImpl implements PageService{
     private PageMapper pageMapper;
     @Override
     public List<Page> countpage(int pageNum, int pageSize) {
-        PageHelper.startPage(1, 10);
-        List<Page> list = pageMapper.PagingQuery(pageNum,pageSize);
-
+        PageHelper.startPage(pageNum, pageSize);
+        List<Page> list = pageMapper.PagingQuery();
         return list;
     }
 }
