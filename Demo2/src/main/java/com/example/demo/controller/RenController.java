@@ -1,16 +1,21 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.GenerateToken;
+import com.example.demo.entity.Page;
 import com.example.demo.entity.Ren;
 import com.example.demo.entity.Userinfo;
+import com.example.demo.manage.ErrorCode;
+import com.example.demo.manage.Result;
 import com.example.demo.manage.UniformTreatment;
-import com.example.demo.manage.ApiResponse.Api;
+
+import com.example.demo.service.PageService;
 import com.example.demo.service.RenService;
 import com.example.demo.service.UserinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,32 +46,38 @@ public class RenController {
     @Autowired
     private UserinfoService userinfoService;
     @GetMapping("/login")
-    public Api begin(@RequestParam String  username, @RequestParam String password){
+    public Result begin(@RequestParam String  username, @RequestParam String password){
         Userinfo name=userinfoService.logininfoname(username);
               Userinfo mes= userinfoService.logininfo(username,password);
         if (mes == null &&name==null) {
-            return new Api("202", "用户不存在", null);
+            return new Result(ErrorCode.NULL_ERROR);
 
         }
         else if(mes == null){
-            return new Api("201", "密码错误", null);
+            return new Result(201, "密码错误" );
         }
         GenerateToken tokenGenerator = new GenerateToken();
         mes.setToken(tokenGenerator.createToken(mes));
         System.out.println(mes);
-        return new Api("200", "成功", mes);
+        return new Result(200, "成功", mes);
     };
     @GetMapping("/insert")
-    public Api INSERT(@RequestParam String  username, @RequestParam String password) {
+    public Result INSERT(@RequestParam String  username, @RequestParam String password) {
         Userinfo name = userinfoService.logininfoname(username);
         if (name != null) {
-            return new Api("201", "用户名已存在", null);
+            return new Result(201, "用户名已存在", null);
         } else {
          int mes = userinfoService.insertuser(username, password);
-            return new Api("200", "注册成功", null);
+            return new Result(200, "注册成功", null);
         }
     }
-
+    @Autowired
+    private PageService pageService;
+   @GetMapping("/ceshi")
+   public Result ceshi(@RequestParam int  pagenum, @RequestParam int pagesize) {
+       List<Page> value=pageService.countpage(pagenum,pagesize);
+       return  new Result(200, "注册成2功", null);
+   }
     /**
      * 新增数据
      *

@@ -25,13 +25,16 @@ public class AuthHandlerInterceptor  implements HandlerInterceptor {
         }
         // 获取请求路径
         String requestPath = request.getRequestURI();
-        System.out.println("请求路径：" + response);
+        System.out.println("请求路径：" + requestPath);
         Map<String,Object> map = new HashMap<>();
-        // 如果是登录接口，则放行
-        if ("/home/login".equals(requestPath)) {
+        if ("/error".equals(requestPath)) {
             return true;
         }
-
+        // 如果是登录接口，则放行
+        if ("/home/login".equals(requestPath) || "/home/ceshi".equals(requestPath)) {
+            return true;
+        }
+        System.out.println("11111");
         // 在这里添加你的身份验证逻辑
         // 例如，验证请求头中是否包含有效的 Token
         String token = request.getHeader("token");
