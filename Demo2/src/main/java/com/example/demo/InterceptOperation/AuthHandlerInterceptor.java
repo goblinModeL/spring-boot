@@ -31,7 +31,7 @@ public class AuthHandlerInterceptor  implements HandlerInterceptor {
             return true;
         }
         // 如果是登录接口，则放行
-        if ("/home/login".equals(requestPath) || "/home/ceshi".equals(requestPath)) {
+        if ("/home/login".equals(requestPath) || requestPath.startsWith("/getActive")) {
             return true;
         }
         System.out.println("11111");

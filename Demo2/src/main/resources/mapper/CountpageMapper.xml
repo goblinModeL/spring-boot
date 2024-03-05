@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.CountpageMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Countpage">
+            <result property="router" column="router" jdbcType="VARCHAR"/>
+            <result property="count" column="count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectPage" resultType="int">
+        SELECT count FROM countpage WHERE router = #{routeName}
+    </select>
+    <insert id="insertPage" parameterType="com.example.demo.entity.Countpage">
+        INSERT INTO countpage (router, count) VALUES (#{routeName}, 1) ON DUPLICATE KEY UPDATE count = count + 1
+    </insert>
+</mapper>
