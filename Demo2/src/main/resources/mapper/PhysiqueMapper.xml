@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PhysiqueMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Physique">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="bodyType" column="body_type" jdbcType="INTEGER"/>
+            <result property="time" column="time" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="GetBody"  resultType="com.example.demo.entity.Physique">
+      select  * from physique where id= #{id}
+    </select>
+    <update id="updatePhysique" parameterType="map">
+        INSERT INTO physique (id, body_type, time) VALUES (#{id}, #{body_type}, NOW())
+         ON DUPLICATE KEY UPDATE body_type = VALUES(body_type), time = NOW()
+    </update>
+
+</mapper>

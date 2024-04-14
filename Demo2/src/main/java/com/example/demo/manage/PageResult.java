@@ -12,19 +12,24 @@ public class PageResult<T>  implements Serializable {
     private T data;
     private  int PageSize;
     private  int PageNum;
-    public PageResult(int code, String message, T data,int PageSize,int PageNum) {
+    private  int Sum;
+
+    public int getSum() {
+        return Sum;
+    }
+
+    public PageResult(int code, int Sum , T data, int PageSize, int PageNum) {
         this.code = code;
-        this.message = message;
+        this.Sum=Sum;
         this.data = data;
         this.PageNum=PageNum;
         this.PageSize=PageSize;
     }
 
 
-    public PageResult(int code, T data ,int PageSize,int PageNum) {
-        this(code, "",  data,PageNum,PageSize);
-    }
-
+//    public PageResult(int code,int Sum ,T data ,int PageSize,int PageNum) {
+//        this(code, Sum, data,PageSize,PageNum);
+//    }
 
 
     public int getCode() {

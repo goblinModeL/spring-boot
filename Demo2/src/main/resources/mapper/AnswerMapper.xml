@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.AnswerMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Answer">
+            <id property="anId" column="an_id" jdbcType="INTEGER"/>
+            <result property="mesid" column="mesid" jdbcType="INTEGER"/>
+            <result property="anMes" column="an_mes" jdbcType="VARCHAR"/>
+            <result property="anUserid" column="an_userid" jdbcType="INTEGER"/>
+            <result property="state" column="state" jdbcType="INTEGER"/>
+            <result property="finishtime" column="FinishTime" jdbcType="DATE"/>
+
+    </resultMap>
+
+<select id="Answers" resultType="com.example.demo.entity.Answer">
+    select * from answer where mesid=#{id}  AND state=1
+</select>
+<!--    管理员-->
+    <select id="anList0" resultType="com.example.demo.entity.Answer">
+        SELECT  * from answer where  state=0
+    </select>
+    <select id="nameList" resultType="map">
+        SELECT u.username
+        FROM userinfo u
+                 JOIN (
+            SELECT *
+            FROM answer
+            WHERE mesid=#{id} AND state=1
+        ) AS a
+                      ON a.an_userid = u.id
+    </select>
+    <select id="nameListAll" resultType="map">
+        SELECT u.username
+        FROM userinfo u
+                 JOIN (
+            SELECT *
+            FROM answer
+            WHERE   state=0
+        ) AS a
+                      ON a.an_userid = u.id
+    </select>
+    <insert id="insertList" parameterType="com.example.demo.entity.Answer">
+        INSERT INTO answer (mesid,an_mes,an_userid,state,FinishTime) VALUES (#{mesid},#{an_mes},#{an_userid},#{state} ,NOW() )
+    </insert>
+
+    
+</mapper>

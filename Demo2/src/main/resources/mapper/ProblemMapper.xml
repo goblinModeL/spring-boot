@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ProblemMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Problem">
+            <id property="mesid" column="mesid" jdbcType="INTEGER"/>
+            <result property="userid" column="userid" jdbcType="INTEGER"/>
+            <result property="proTitle" column="pro_title" jdbcType="VARCHAR"/>
+            <result property="mes" column="mes" jdbcType="VARCHAR"/>
+            <result property="starttime" column="startTime" jdbcType="DATE"/>
+            <result property="state" column="state" jdbcType="INTEGER"/>
+    </resultMap>
+<!--//用户-->
+ <select id="proList" resultType="com.example.demo.entity.Problem">
+  SELECT  * from problem where  state=1
+ </select>
+<!--    管理员-->
+    <select id="proList0" resultType="com.example.demo.entity.Problem">
+        SELECT  * from problem where  state=0
+    </select>
+    <update id="updateproList0" parameterType="map">
+        UPDATE problem
+        SET state = #{state}
+        WHERE mesid = #{mesid}
+    </update>
+    <select id="proListnum" resultType="com.example.demo.entity.Problem">
+        SELECT  * from problem where  userid=#{id} And state=#{state}
+    </select>
+    <select id="proNum" resultType="int">
+        SELECT  count(*) from problem where state=1
+    </select>
+    <select id="nameList" resultType="map">
+        SELECT u.username  FROM userinfo u  JOIN problem p ON p.userid = u.id
+    </select>
+    <!-- 删除 problem 表中满足特定条件的记录 -->
+    <delete id="deleteProblemByMesid">
+        DELETE FROM problem WHERE mesid = #{mesid}
+    </delete>
+
+    <!-- 更新 answer 表中满足特定条件的记录 -->
+    <update id="deleteAnswerByMesid" parameterType="map">
+        UPDATE answer
+        SET state = #{state}
+        WHERE an_id = #{an_id}
+    </update>
+</mapper>

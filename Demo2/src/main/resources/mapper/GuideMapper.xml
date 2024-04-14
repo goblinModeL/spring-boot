@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.GuideMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Guide">
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="key" column="key" jdbcType="INTEGER"/>
+            <result property="num" column="num" jdbcType="INTEGER"/>
+            <result property="time" column="time" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="gui" resultType="com.example.demo.entity.Guide">
+        select * from guide where type=#{type}
+    </select>
+    <select id="guiAll" resultType="com.example.demo.entity.Guide">
+        select * from guide
+    </select>
+    <update id="updateGuideNum" parameterType="map">
+        UPDATE guide
+        SET num = num + 1
+        WHERE id = #{id}
+    </update>
+    <select id="guiid" resultType="com.example.demo.entity.Guide">
+        select * from guide where id=#{id}
+    </select>
+</mapper>
