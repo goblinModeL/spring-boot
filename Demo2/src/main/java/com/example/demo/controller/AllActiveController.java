@@ -54,21 +54,21 @@ public class AllActiveController {
     }
     @PostMapping("/upload")
     public SysResult uploadAvatarHandler(@RequestParam("file") MultipartFile uploadFile ) throws IOException {
+
+
+        // 开发环境 resources 目录：可永久保存
+        String resourcesPath = System.getProperty("user.dir") + "/Demo2/src/main/resources/static/img";
+        // System.out.printf("resources目录路径：" + resourcesPath);
+        File path = new File(resourcesPath);
         System.out.println("[上传的文件名]：" + uploadFile);
         //获得项目的类路径
-        String path = ResourceUtils.getURL("classpath:").getPath();
-        //空文件夹在编译时不会打包进入target中
-        File uploadDir = new File(path+"/static/img");
-        if (!uploadDir.exists()) {
-            System.out.println("上传头像路径不存在，正在创建...");
-            uploadDir.mkdir();
-        }
+
         if ( uploadFile != null) {
             //获得上传文件的文件名
             String oldName = uploadFile.getOriginalFilename();
             System.out.println("[上传的文件名]：" + oldName);
             //我的文件保存在static目录下的avatar/user
-            File avatar = new File(path + "/static/img" , oldName);
+            File avatar = new File(path, oldName);
             try {
                 //保存图片
                 uploadFile.transferTo(avatar);
