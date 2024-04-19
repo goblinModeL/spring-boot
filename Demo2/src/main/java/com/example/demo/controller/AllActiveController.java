@@ -2,15 +2,20 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.AllActive;
 import com.example.demo.entity.Countpage;
+import com.example.demo.entity.SysResult;
 import com.example.demo.manage.ApiResponse.Api;
 import com.example.demo.manage.Result;
 import com.example.demo.service.AllActiveService;
 
 import com.example.demo.service.CountpageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 @RestController
@@ -47,7 +52,38 @@ public class AllActiveController {
 
 
     }
+    @PostMapping("/upload")
+    public SysResult uploadAvatarHandler(@RequestParam("file") MultipartFile uploadFile ) throws IOException {
+        System.out.println("[上传的文件名]：" + uploadFile);
+        //获得项目的类路径
+        String path = ResourceUtils.getURL("classpath:").getPath();
+        //空文件夹在编译时不会打包进入target中
+        File uploadDir = new File(path+"/static/img");
+        if (!uploadDir.exists()) {
+            System.out.println("上传头像路径不存在，正在创建...");
+            uploadDir.mkdir();
+        }
+        if ( uploadFile != null) {
+            //获得上传文件的文件名
+            String oldName = uploadFile.getOriginalFilename();
+            System.out.println("[上传的文件名]：" + oldName);
+            //我的文件保存在static目录下的avatar/user
+            File avatar = new File(path + "/static/img" , oldName);
+            try {
+                //保存图片
+                uploadFile.transferTo(avatar);
+                //返回成功结果，附带文件的相对路径
+                return SysResult.ok("上传成功","/static/img"+oldName);
+            }catch (IOException e) {
+                e.printStackTrace();
+                return SysResult.error("上传失败");
+            }
+        }else {
+            System.out.println("上传的文件为空");
+            return SysResult.error("文件传输错误");
+        }
 
+    }
 
 
 
